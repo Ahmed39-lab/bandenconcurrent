@@ -11,13 +11,13 @@ import Image from "next/image";
 
 export default function Header() {
   const [openIndex, setOpenIndex] = useState<string | null>(null);
-  const [isClient, setIsClient] = useState(false);
+  //const [isClient, setIsClient] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
    const baseUrl = process.env.NEXT_PUBLIC_FRONT_END;
 
   useEffect(() => {
     // SSR me document undefined hota hai, ye ensure karta hai ke browser me hi render ho
-    setIsClient(true);
+    //setIsClient(true);
   }, []);
 
   const menuItems = [

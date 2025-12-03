@@ -4,15 +4,12 @@ import ProductContent from "@/app/_components/product/productContent";
 import ProductImageSlider from "@/app/_components/product/ProductImageSlider";
 import React from "react";
 
-
 interface PageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
-export default async function Page({ params }: PageProps) {  
-  const { id } = await params;  // ❗ Correct way (no await)
+export default async function Page(props: PageProps) {
+  const { id } = await props.params;
 
   return (
     <>
@@ -20,23 +17,12 @@ export default async function Page({ params }: PageProps) {
         <div className="max-w-[1200px] mx-auto">
           <div className="flex flex-col gap-4 px-2 md:px-0">
             <div>
-                
-
-                        <Breadcrumbs />
-
+              <Breadcrumbs />
             </div>
 
             <div className="flex flex-col md:flex-row gap-6">
-              {/* LEFT SIDE IMAGE GALLERY */}
-              {/* <div className="w-1/2 bg-gray-100 p-4 rounded">
-                Left image slider for product single page
-                <br />
-                <span className="text-xs text-gray-500">Product ID: {id}</span>
-              </div> */}
               <ProductImageSlider id={id} />
-
-              {/* RIGHT SIDE PRODUCT DETAILS */}
-             <ProductContent />
+              <ProductContent />
             </div>
           </div>
         </div>
