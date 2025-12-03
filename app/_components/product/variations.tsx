@@ -202,7 +202,7 @@ export default function Variations() {
                 >
                   <div className="flex items-center gap-4">
                     <Image
-                      src={`/images/logo.PNG`}
+                      src={`${baseUrl}/images/logo.PNG`}
                       width={110}
                       height={110}
                       alt="Demo Tyre"

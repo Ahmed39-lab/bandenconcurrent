@@ -82,6 +82,7 @@ const TireCategory = ({
 // Main Component
 // ---------------------
 const PopularTires = () => {
+  const baseUrl = process.env.NEXT_PUBLIC_FRONT_END;
   return (
     <>
    <section className="">
@@ -97,11 +98,11 @@ const PopularTires = () => {
           image="/images/summer.png"
           readMore="/summer-tires"
           items={[
-            { title: "Pirelli Cinturato P7", href : "product/pirelli-cinturato" },
-            { title: "Goodyear Efficientgrip Performance", href : "product/goodyear" },
-            { title: "Michelin Energy Saver", href : "product/michelin-energy" },
-            { title: "Bridgestone Turanza T005", href : "product/bridgestone" },
-            { title: "Michelin Primacy 4", href : "product/michelin-primacy" },
+            { title: "Pirelli Cinturato P7", href : `${baseUrl}/product/pirelli-cinturato` },
+            { title: "Goodyear Efficientgrip Performance", href : `${baseUrl}/product/goodyear` },
+            { title: "Michelin Energy Saver", href : `${baseUrl}/product/michelin-energy` },
+            { title: "Bridgestone Turanza T005", href : `${baseUrl}/product/bridgestone` },
+            { title: "Michelin Primacy 4", href : `${baseUrl}/product/michelin-primacy` },
           ]}
         />
 
@@ -112,11 +113,11 @@ const PopularTires = () => {
           image="/images/allseason.png"
           readMore="/all-season-tires"
           items={[
-            { title: "Vredestein Quatrac 5", href : "product/vredestein" },
-            { title: "Goodyear Vector 4Seasons", href : "product/vector4" },
-            { title: "Nexen N Blue 4 Season", href : "product/nexen-blue" },
-            { title: "Nokian Weatherproof", href : "product/nokian" },
-            { title: "Kleber Quadraxer 2", href : "product/kleber" },
+            { title: "Vredestein Quatrac 5", href : `${baseUrl}/product/vredestein` },
+            { title: "Goodyear Vector 4Seasons", href : `${baseUrl}/product/vector4` },
+            { title: "Nexen N Blue 4 Season", href : `${baseUrl}/product/nexen-blue` },
+            { title: "Nokian Weatherproof", href : `${baseUrl}/product/nokian` },
+            { title: "Kleber Quadraxer 2", href : `${baseUrl}/product/kleber` },
           ]}
         />
 
