@@ -21,7 +21,7 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-100 mt-10 py-8 text-sm text-black">
+    <footer className="border-gray-100 border-t  mt-10 py-8 text-sm text-black">
       <div className="max-w-[1300px] mx-auto px-4">
         {/* Top Row: Logo + Rating */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
