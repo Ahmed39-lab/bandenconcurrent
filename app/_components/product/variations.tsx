@@ -201,8 +201,8 @@ export default function Variations() {
                   className="p-5 rounded-xl bg-white border border-gray-200 shadow-sm hover:shadow-md transition flex gap-4 items-center justify-between"
                 >
                   <div className="flex items-center gap-4">
-                    <img
-                      src={`${baseUrl}/images/logo.PNG`}
+                    <Image
+                      src={`${baseUrl}/images/logo.png`}
                       width={110}
                       height={110}
                       alt="Demo Tyre"
