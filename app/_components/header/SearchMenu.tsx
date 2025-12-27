@@ -3,10 +3,12 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import {Search, ShoppingBag, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
+import { useCartStore } from '../store/useCartStore'
 
 function SearchMenu() {
    const baseUrl = process.env.NEXT_PUBLIC_FRONT_END;
    const [cartItems, setCartItems] = useState(3); // Example total items
+   const {cart} = useCartStore();
   return (
    <>
   
@@ -40,9 +42,10 @@ function SearchMenu() {
         <Link href={`${baseUrl}/cart`}>
       <ShoppingCart size={24} className="text-gray-700" />
 
-      {cartItems > 0 && (
+      {cart.length > 0 && (
         <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-          {cartItems}
+          {/* {cartItems} */}
+          {cart.length}
         </span>
       )}
       </Link>

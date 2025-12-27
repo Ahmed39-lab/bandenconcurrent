@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Range, getTrackBackground } from "react-range";
-import Image from "next/image";
 
 export default function Variations() {
   const router = useRouter();
@@ -13,9 +12,9 @@ export default function Variations() {
   const [categoryOpen, setCategoryOpen] = useState(false);
   const [typeOpen, setTypeOpen] = useState(false);
 
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedType, setSelectedType] = useState<string | null>(null);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedType, setSelectedType] = useState(null);
+  const [priceRange, setPriceRange] = useState([0, 500]);
 
   const minPrice = 0;
   const maxPrice = 5000;

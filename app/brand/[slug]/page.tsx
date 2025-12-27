@@ -5,18 +5,19 @@ import React from 'react';
 
 
 interface PageProps {
-  params: Promise<{ sizeSlug: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 // Server component
 export default async function page({ params }: PageProps) {
  // const sizeSlug = params.sizeSlug; // direct string
- const { sizeSlug } =await params;
+ const { slug } =await params;
  //const products = await getProductsBySize(sizeSlug);
  //console.log(products)
 
   return (
     <>
+            <div>{slug}</div>
             <Variations />
             {/* <div>const { sizeSlug }</div> */}
     </>

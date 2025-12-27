@@ -3,15 +3,27 @@
 import Image from "next/image";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react"; // optional, or use your own SVG
+import { json } from "stream/consumers";
 
-const productImages = [
-  "/images/product/p1.webp",
-  "/images/product/p2.webp",
-  "/images/product/p3.webp",
-  "/images/product/p4.webp",
-];
 
-export default function ProductImageSlider({ id }: { id: string }) {
+
+export default function ProductImageSlider({ data }: any) {
+  //console.log("ProductImageSlider data:", data.images);
+  
+//console.log("Environment variable NEXT_PUBLIC_BAKEND_URL:", process.env.BACKEND_URL);
+const bakend_url = 'http://localhost:1337';//process.env.BACKEND_URL;   
+const product = data.images;
+
+const productImages = product?.map((img: any) => {
+     return `${bakend_url}${img.url}`;
+  })
+// console.log("Mapped product images URLs:", productImages1);
+//   const productImages = [
+//   "/images/product/p1.webp",
+//   "/images/product/p2.webp",
+//   "/images/product/p3.webp",
+//   "/images/product/p4.webp",
+// ];
   const [activeIndex, setActiveIndex] = useState(0);
 
   const prevImage = () => {
@@ -28,9 +40,11 @@ export default function ProductImageSlider({ id }: { id: string }) {
 
   return (
     <div className="w-full md:w-1/2 bg-gray-50 p-4 rounded shadow flex gap-4 relative">
+      {/* {JSON.stringify(data)}   */}
       {/* THUMBNAILS */}
       <div className="flex flex-col gap-2">
-        {productImages.map((img, idx) => (
+        
+        {productImages.map((img:any, idx:any) => (
           <div
             key={idx}
             className={`w-20 h-20 border rounded overflow-hidden cursor-pointer ${
@@ -77,7 +91,11 @@ export default function ProductImageSlider({ id }: { id: string }) {
         </div>
 
         <span className="text-xs text-gray-500 block mt-2">
-          Product ID: {id}
+          Product ID: 
+         {/* <img 
+  src={`${bakend_url}${productImages1[0]}`} 
+  alt="ksfjsjf" 
+/> */}
         </span>
       </div>
     </div>

@@ -10,7 +10,7 @@ const url = new URL(request.url);
 
 const id = url.searchParams.get('sizeSlug');
 const apiUrl = `${process.env.STRAPI_API_URL}/products?populate=*`;
-console.log(id)
+//console.log(id)
 //console.log("URL",process.env.STRAPI_API_URL)
 const res = await fetch(apiUrl, {
   method: "GET",
@@ -22,7 +22,7 @@ const res = await fetch(apiUrl, {
 });
 
 const data = await res.json();
-//console.log(data);
+
 
 
    // const data = await response.json();

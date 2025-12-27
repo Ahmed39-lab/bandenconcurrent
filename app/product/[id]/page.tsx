@@ -1,4 +1,5 @@
 import Breadcrumbs from "@/app/_components/generals/breadrumbs";
+import { getProductByCategories, getProductBySlug } from "@/app/_components/lib/product/product";
 import PopularTires from "@/app/_components/product/popular";
 import ProductContent from "@/app/_components/product/productContent";
 import ProductImageSlider from "@/app/_components/product/ProductImageSlider";
@@ -10,7 +11,11 @@ interface PageProps {
 
 export default async function Page(props: PageProps) {
   const { id } = await props.params;
-
+  if(!id){
+    console.log("No product ID provided");
+  }
+  const data = await getProductBySlug(id);
+//console.log("Product data:", data);
   return (
     <>
       <section>
@@ -21,8 +26,13 @@ export default async function Page(props: PageProps) {
             </div>
 
             <div className="flex flex-col md:flex-row gap-6">
-              <ProductImageSlider id={id} />
-              <ProductContent />
+              {data && (
+                <>
+                {/* <h1>Product Detail Page for {id}</h1> */}
+              <ProductImageSlider data={data} />
+              <ProductContent data={data} />
+              </>
+              )}
             </div>
           </div>
         </div>

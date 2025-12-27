@@ -1,202 +1,73 @@
-// PopularTires.tsx
-// Modern clean version without React.FC
-// Using direct function types (recommended way)
-
-import Image from "next/image";
+import { ArrowRight, ChevronRight, Sun } from "lucide-react";
 import Link from "next/link";
-import { Sun, Snowflake, CloudSun, ArrowBigRight, ArrowRight } from "lucide-react";
-
-// ---------------------
-// Reusable List Item
-// ---------------------
-interface TireItemProps {
-  title: string;
-  href: string;
-}
-
-// Simple, clean functional component (no React.FC)
-const TireItem = ({ title, href }: TireItemProps) => {
-  return (
-    <Link
-      href={href}
-      className="flex justify-between items-center py-2 border-b border-gray-200 hover:text-blue-600 transition"
-    >
-      <span>{title}</span>
-      <span><ArrowRight /></span> {/* Simple arrow */}
-    </Link>
-  );
+import React from "react";
+import { getProductByCategories } from "../lib/product/product";
+type Tire = {
+  name: string;
+  slug: string;
+  // agar aur fields hain, wahan add karen
 };
 
-// ---------------------
-// Category Card Component
-// ---------------------
-interface TireCategoryProps {
-  icon: React.ReactNode;
+type SummerTiresProps = {
   title: string;
-  image: string;
-  items: { title: string; href: string }[];
-  readMore: string;
-}
-
-const TireCategory = ({
-  icon,
-  title,
-  image,
-  items,
-  readMore,
-}: TireCategoryProps) => {
-  return (
-    <div className="w-full md:w-1/3 p-4 border-[#ddd] border-r-2  border-l-2  bg-[white]">
-
-      {/* Heading */}
-      <div className="flex items-center gap-2 text-lg font-semibold mb-3">
-        {icon}
-        {title}
-      </div>
-
-      {/* Uncomment if you want the top small image */}
-      {/* 
-      <div className="mb-4">
-        <Image src={image} alt={title} width={120} height={80} />
-      </div>
-      */}
-
-      {/* List of Tires */}
-      <div>
-        {items.map((item, index) => (
-          <TireItem key={index} title={item.title} href={item.href} />
-        ))}
-      </div>
-
-      {/* Read more link */}
-      <p className="mt-4 text-sm">
-        <Link href={readMore} className="text-blue-600 underline">
-          Read more here
-        </Link>
-      </p>
-    </div>
-  );
+  data: Tire[];
 };
 
-// ---------------------
-// Main Component
-// ---------------------
-const PopularTires = () => {
-  const baseUrl = process.env.NEXT_PUBLIC_FRONT_END;
+
+async function popular() {
+const catData = await getProductByCategories("motorbike-tyres1");
+
   return (
     <>
-   <section className="">
-   <div className="py-10 max-w-[1200px] mx-auto mt-[500px] md:mt-[300px]">
-      <h2 className="text-2xl font-bold mb-8 pl-2">Most popular tire models</h2>
+      <section className="pt-1.5 pb-1.5  mt-[550px] md:mt-[350px]  text-black text-sm font-normal">
+        <div className="max-w-[1200px] flex-col mx-auto  md:flex-row justify-between space-x-3">
+          <h2 className="text-2xl font-bold mb-4">Most Popular Tires
+            
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-12">
+            <div>
+              <SummerTires title='Summer tires top 5' data={catData} />
+            </div>
+            <div>
+              <SummerTires title='Winter tires top 5' data={catData} />
+            </div>
+             <div>
+              <SummerTires title='Winter and Summer tires top 5' data={catData} />
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
 
-      <div className="flex flex-col md:flex-row gap-6">
+export default popular;
 
-        {/* Summer Tires */}
-        <TireCategory
-          icon={<Sun className="text-yellow-500" />}
-          title="Summer tires top 5"
-          image="/images/summer.png"
-          readMore="/summer-tires"
-          items={[
-            { title: "Pirelli Cinturato P7", href : `${baseUrl}/product/pirelli-cinturato` },
-            { title: "Goodyear Efficientgrip Performance", href : `${baseUrl}/product/goodyear` },
-            { title: "Michelin Energy Saver", href : `${baseUrl}/product/michelin-energy` },
-            { title: "Bridgestone Turanza T005", href : `${baseUrl}/product/bridgestone` },
-            { title: "Michelin Primacy 4", href : `${baseUrl}/product/michelin-primacy` },
-          ]}
-        />
-
-        {/* All-season Tires */}
-        <TireCategory
-          icon={<CloudSun className="text-orange-500" />}
-          title="All-season tires top 5"
-          image="/images/allseason.png"
-          readMore="/all-season-tires"
-          items={[
-            { title: "Vredestein Quatrac 5", href : `${baseUrl}/product/vredestein` },
-            { title: "Goodyear Vector 4Seasons", href : `${baseUrl}/product/vector4` },
-            { title: "Nexen N Blue 4 Season", href : `${baseUrl}/product/nexen-blue` },
-            { title: "Nokian Weatherproof", href : `${baseUrl}/product/nokian` },
-            { title: "Kleber Quadraxer 2", href : `${baseUrl}/product/kleber` },
-          ]}
-        />
-
-        {/* Winter Tires */}
-        <TireCategory
-          icon={<Snowflake className="text-blue-500" />}
-          title="Winter tires top 5"
-          image="/images/winter.png"
-          readMore="/winter-tires"
-          items={[
-            { title: "Dunlop Winter Sport 5", href : "product/dunlop" },
-            { title: "Continental WinterContact TS 860", href : "product/continental" },
-            { title: "Michelin Alpin 6", href : "product/alpin6" },
-            { title: "Kleber Krisalp HP3", href : "product/krisalp" },
-            { title: "Michelin Alpin 5", href : "product/alpin5" },
-          ]}
-        />
-
+const SummerTires = ({ title, data }: SummerTiresProps) => {
+  return (
+    <>
+      <div className="bg-white flex-col p-4 rounded-lg text-sm text-black">
+        <div className="flex justify-between mb-4">
+          <div className="flex gap-2 items-center">
+            <Sun className="text-yellow-400" />
+            <h1 className="text-sm text-black font-semibold">
+              {/* {JSON.stringify(data)} */}
+              {title}</h1>
+          </div>
+        </div>
+        <ul className="border-l-2  border-[#dddd] pl-3">
+          {data.map((tire) => (
+            <li key={tire.slug} className="border-t-2 border-[#dddd]">
+              <Link
+                href={`/product/${tire.slug}`}
+                className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-100 transition" >
+                  <span>{tire.name}</span>
+              <ChevronRight className="w-5 h-5" />
+                   </Link>  
+          </li>))}  
+ 
+        </ul>
       </div>
-    </div>
-    </section>
-
-{/* Most popular tire brands */}
-       <section className="">
-   <div className="py-10 max-w-[1200px] mx-auto mt-[50px]">
-      <h2 className="text-2xl font-bold mb-8 pl-2">Most popular tire brands</h2>
-
-      <div className="flex flex-col md:flex-row gap-6">
-
-        {/* Summer Tires */}
-        <TireCategory
-          icon={<Sun className="text-yellow-500" />}
-          title="Summer tires top 5"
-          image="/images/summer.png"
-          readMore="/summer-tires"
-          items={[
-            { title: "Pirelli Cinturato P7", href: "product/pirelli-cinturato" },
-            { title: "Goodyear Efficientgrip Performance", href: "product//goodyear" },
-            { title: "Michelin Energy Saver", href: "product//michelin-energy" },
-            { title: "Bridgestone Turanza T005", href: "/bridgestone" },
-            { title: "Michelin Primacy 4", href: "product//michelin-primacy" },
-          ]}
-        />
-
-        {/* All-season Tires */}
-        <TireCategory
-          icon={<CloudSun className="text-orange-500" />}
-          title="All-season tires top 5"
-          image="/images/allseason.png"
-          readMore="/all-season-tires"
-          items={[
-            { title: "Vredestein Quatrac 5", href : "product/vredestein" },
-            { title: "Goodyear Vector 4Seasons", href : "product/vector4" },
-            { title: "Nexen N Blue 4 Season", href : "product/nexen-blue" },
-            { title: "Nokian Weatherproof", href : "product/nokian" },
-            { title: "Kleber Quadraxer 2", href : "product/kleber" },
-          ]}
-        />
-
-        {/* Winter Tires */}
-        <TireCategory
-          icon={<Snowflake className="text-blue-500" />}
-          title="Winter tires top 5"
-          image="/images/winter.png"
-          readMore="/winter-tires"
-          items={[
-            { title: "Dunlop Winter Sport 5", href : "product/dunlop" },
-            { title: "Continental WinterContact TS 860", href : "product/continental" },
-            { title: "Michelin Alpin 6", href : "product/alpin6" },
-            { title: "Kleber Krisalp HP3", href : "product/krisalp" },
-            { title: "Michelin Alpin 5", href : "product/alpin5" },
-          ]}
-        />
-
-      </div>
-    </div>
-    </section>
     </>
   );
 };
-
-export default PopularTires;

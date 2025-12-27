@@ -1,33 +1,62 @@
 "use client";
 
 import { useState } from "react";
-import { Check, X } from "lucide-react";
+import { Check, DeleteIcon, RemoveFormattingIcon, X } from "lucide-react";
+import { useCartStore } from "../store/useCartStore";
+type Product = {
+  name: string;
+  price: number;
+};
+export default function ProductContent({data}: any) {
+  
+  const { removeFromCart,cart,addToCart } = useCartStore();
+  
 
-export default function ProductContent() {
   const [width, setWidth] = useState("Medium");
   const [height, setHeight] = useState("Medium");
   const [size, setSize] = useState("M");
 
   const [cartOpen, setCartOpen] = useState(false); // For sliding cart panel
+  const {name, price, description} = data || {};
+  //const backend_url = process.env.BACKEND_URL;
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_FRONT_END;
+  const dummyImage= "https://placehold.co/400";
+  const image = data?.images?.[0]?.url
+  ? `${backend_url}${data.images[0].url}`
+  : dummyImage;
+
 
   const handleAddToCart = () => {
     setCartOpen(true); // Open sliding cart
+    const { id, name, price }  = data;
+
+addToCart({
+  id,
+  name,
+  price,
+  qty:1,
+  image:image,
+});
+
   };
 
   return (
 <>
       <div className="w-full md:w-1/2 p-6 rounded shadow flex flex-col gap-4">
         {/* Product Title */}
-        <h2 className="text-2xl font-bold">Dummy Product Title</h2>
-
+        <pre />
+        {JSON.stringify(data.images[0].url,null,2)}
+        <h2 className="text-2xl font-bold">{name}{backend_url}</h2>
+<h2>{backend_url}</h2>
         {/* Description */}
         <p className="text-gray-700 text-sm">
-          This is a dummy description for the product. It describes key features, 
-          quality, and usage details. Perfect for showcasing your item.
-        </p>
+         {/* {description[0]?.text || "No description available."}        */}
+         {description || "No description available."}
+          </p>
 
         {/* Price */}
-        <p className="text-xl font-semibold text-green-600">$149.99</p>
+        <p className="text-xl font-semibold text-green-600">${price}</p>
 
         {/* Rating Stars */}
         <div className="flex items-center gap-1">
@@ -102,7 +131,7 @@ export default function ProductContent() {
         {/* Add to Cart Button */}
         <button
           onClick={handleAddToCart}
-          className="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded transition-colors"
+          className="mt-6 bg-[#fded5b] hover:bg-amber-100 cursor-pointer  text-black font-semibold py-3 rounded transition-colors"
         >
           Add to Cart
         </button>
@@ -121,11 +150,37 @@ export default function ProductContent() {
           </button>
         </div>
         <div>
-          <p className="text-gray-700">Dummy Product Title</p>
-          <p className="text-green-600 font-semibold">$149.99</p>
-          <p className="text-gray-500 text-sm mt-2">Width: {width}</p>
-          <p className="text-gray-500 text-sm">Height: {height}</p>
-          <p className="text-gray-500 text-sm">Size: {size}</p>
+          <pre />
+          {/* {JSON.stringify(cart,null,2)} */}
+       {cart.map(({ id, name, price,qty }:any,index:number) => (
+  <div key={index} className="mb-4 border-b pb-3">
+    <p className="text-gray-700 flex justify-between gap-3">
+     <span> {name || "Dummy Product Title"}</span>
+     <span className="text-red-400 cursor-pointer"><DeleteIcon size={18} onClick={()=>removeFromCart(id)} /> </span>
+    </p>
+
+    <p className="text-green-600 font-semibold">
+      ${price}
+    </p>
+    
+    <p className="text-red-500 font-semibold">
+     Quantity : {qty}
+         </p>
+
+    <p className="text-gray-500 text-sm mt-2">
+      {/* Width: {item.width} */}
+    </p>
+
+    <p className="text-gray-500 text-sm">
+      {/* Height: {item.height} */}
+    </p>
+
+    <p className="text-gray-500 text-sm">
+      {/* Size: {item.size} */}
+    </p>
+  </div>
+))}
+
         </div>
         <button
           onClick={() => alert("Proceed to Checkout")}
