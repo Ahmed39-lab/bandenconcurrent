@@ -2,28 +2,17 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react"; // optional, or use your own SVG
-import { json } from "stream/consumers";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
+export default function ProductImageSlider({ data }) {
+  const backend_url = "http://localhost:1337";
 
+  const product = data?.images || [];
 
-export default function ProductImageSlider({ data }: any) {
-  //console.log("ProductImageSlider data:", data.images);
-  
-//console.log("Environment variable NEXT_PUBLIC_BAKEND_URL:", process.env.BACKEND_URL);
-const bakend_url = 'http://localhost:1337';//process.env.BACKEND_URL;   
-const product = data.images;
+  const productImages = product.map((img) => {
+    return `${backend_url}${img.url}`;
+  });
 
-const productImages = product?.map((img: any) => {
-     return `${bakend_url}${img.url}`;
-  })
-// console.log("Mapped product images URLs:", productImages1);
-//   const productImages = [
-//   "/images/product/p1.webp",
-//   "/images/product/p2.webp",
-//   "/images/product/p3.webp",
-//   "/images/product/p4.webp",
-// ];
   const [activeIndex, setActiveIndex] = useState(0);
 
   const prevImage = () => {
@@ -38,13 +27,13 @@ const productImages = product?.map((img: any) => {
     );
   };
 
+  if (!productImages.length) return null;
+
   return (
     <div className="w-full md:w-1/2 bg-gray-50 p-4 rounded shadow flex gap-4 relative">
-      {/* {JSON.stringify(data)}   */}
       {/* THUMBNAILS */}
       <div className="flex flex-col gap-2">
-        
-        {productImages.map((img:any, idx:any) => (
+        {productImages.map((img, idx) => (
           <div
             key={idx}
             className={`w-20 h-20 border rounded overflow-hidden cursor-pointer ${
@@ -68,7 +57,7 @@ const productImages = product?.map((img: any) => {
         {/* Left Arrow */}
         <button
           onClick={prevImage}
-          className="absolute top-1/2 -left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow hover:bg-gray-100 z-10"
+          className="absolute top-1/2 -left-4 -translate-y-1/2 bg-white p-2 rounded-full shadow hover:bg-gray-100 z-10"
         >
           <ChevronLeft size={24} />
         </button>
@@ -76,7 +65,7 @@ const productImages = product?.map((img: any) => {
         {/* Right Arrow */}
         <button
           onClick={nextImage}
-          className="absolute top-1/2 -right-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow hover:bg-gray-100 z-10"
+          className="absolute top-1/2 -right-4 -translate-y-1/2 bg-white p-2 rounded-full shadow hover:bg-gray-100 z-10"
         >
           <ChevronRight size={24} />
         </button>
@@ -91,11 +80,7 @@ const productImages = product?.map((img: any) => {
         </div>
 
         <span className="text-xs text-gray-500 block mt-2">
-          Product ID: 
-         {/* <img 
-  src={`${bakend_url}${productImages1[0]}`} 
-  alt="ksfjsjf" 
-/> */}
+          Product ID:
         </span>
       </div>
     </div>

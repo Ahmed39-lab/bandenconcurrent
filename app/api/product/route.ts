@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
     try{
        // return NextResponse.json({success:true,data:"This is my first Data"})
-
+       
  //const apiUrl = `http://localhost:1337/api/brands`;
 const url = new URL(request.url);
 

@@ -1,23 +1,40 @@
 // /app/sizes/[sizeSlug]/page.jsx
-//import { getProductsBySize } from '@/app/_components/lib/product/product';
-import { getProductsBySize } from '@/app/_components/lib/helperAPI';
-import Variations from '@/app/_components/product/variations';
-import React from 'react';
+import React from "react";
+import Variations from "@/app/_components/product/variations";
+import { getProductsBySize } from "@/app/_components/lib/helperAPI";
 
-// Server component
-export default async function Page({ params }) {
-  // params is a promise
-  const { sizeSlug } = await params;
+export default async function Page({ params, searchParams }) {
+  // 1️⃣ Get dynamic route segment
+  const { sizeSlug } = await params; // No need for await here
+  const resolvedSearchParams = await searchParams;
+  // 2️⃣ Convert all query params to a single string
+  //const queryString = new URLSearchParams(searchParams).toString();
+  //console.log("Query string:", queryString);
+  // Example output: "brand=Brand1,Brand2&category=TyreA&minPrice=0&maxPrice=5000"
 
-  // Uncomment if you want to fetch products
-   const products = await getProductsBySize(sizeSlug);
-   console.log("Currenrt Produts ",products);
+  // 3️⃣ Fetch data from your API
+
+  
+  const data = await getProductsBySize(sizeSlug,resolvedSearchParams);
+  
 
   return (
     <>
-   
-      <Variations />
-      {/* <div>{sizeSlug}</div> */}
+
+    {/* Debug output */}
+      <div className="mt-4 text-gray-600">
+        {/* <p>
+          <strong>Size Slug:</strong> {sizeSlug}
+        </p> */}
+        <p>
+          {/* <strong>Query String:</strong> {JSON.stringify(searchParams,null,2)} */}
+        </p>
+      </div>
+      {data && (
+        <Variations data={data} slug={sizeSlug}  />
+      )}
+
+      
     </>
   );
 }
