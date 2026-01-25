@@ -1,3 +1,4 @@
+
 /* eslint-disable react-hooks/set-state-in-effect */
 /* eslint-disable react-hooks/exhaustive-deps */
 
@@ -10,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { Range, getTrackBackground } from "react-range";
 import Loading from "../../sizes/loading";
 
-export default function Variations({ data, slug }) {
+export default function Variations_bk({ data, slug }) {
   const router = useRouter();
   const baseUrl = process.env.NEXT_PUBLIC_FRONT_END;
   const timeoutRef = useRef(null);
@@ -76,23 +77,37 @@ const clearSize = () => {
 
   /* ================= ROUTER PUSH ================= */
   useEffect(() => {
-    setIsLoading(true);
+    //setIsLoading(true);
     clearTimeout(timeoutRef.current);
 
     timeoutRef.current = setTimeout(() => {
       router.push(`${baseUrl}/sizes/${newSlug}?${queryString}`);
-      setIsLoading(false);
+      //setIsLoading(false);
     }, 600);
 
     return () => clearTimeout(timeoutRef.current);
   }, [queryString, newSlug]);
 
   /* ================= SLUG PARSE ================= */
-  useEffect(() => {
-    if (!slug) return;
-    const [width, height, size] = slug.split("-");
-    setFiltersForm({ width, height, size });
-  }, [slug]);
+useEffect(() => {
+  if (!slug) return;
+
+  const [width, height, size] = slug.split("-");
+
+  setFiltersForm((prev) => {
+    // agar already same values hain → state update na karo
+    if (
+      prev.width === width &&
+      prev.height === height &&
+      prev.size === size
+    ) {
+      return prev;
+    }
+
+    return { width, height, size };
+  });
+}, [slug]);
+
 
   /* ================= HELPERS ================= */
   const toggleValue = (value, setter) => {

@@ -1,7 +1,6 @@
 import React from "react";
 import Breadcrumbs from "@/app/_components/generals/breadrumbs";
 import {
-  getProductByCategories,
   getProductBySlug,
 } from "@/app/_components/lib/product/product";
 import PopularTires from "@/app/_components/product/popular";

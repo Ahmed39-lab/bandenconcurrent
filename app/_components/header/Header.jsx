@@ -31,11 +31,11 @@ export default function Header() {
   useEffect(() => {
     //console.log("API Function called!");
 
-    const fetchProduct = async () => {
-      const res = await fetch("/api/product");
-      const data = await res.json();
-     // console.log(data);
-    };
+    // const fetchProduct = async () => {
+    //   const res = await fetch("/api/product");
+    //   const data = await res.json();
+    //  // console.log(data);
+    // };
 
     // fetchProduct();
   }, []);

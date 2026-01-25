@@ -1,4 +1,4 @@
-import { ArrowRight, ChevronRight, Sun } from "lucide-react";
+import { ChevronRight, Sun } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { getProductByCategories } from "../lib/product/product";

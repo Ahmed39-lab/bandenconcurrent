@@ -24,7 +24,7 @@ export async function GET(request) {
       );
     }
    // console.log("currnt slug ", slug);
-const [width,height,size] = slug.split("-");
+//const [width,height,size] = slug.split("-");
 
 //console.log("Width:", width, "Height:", height, "Size:", size);
     // const params = new URLSearchParams({

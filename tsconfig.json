@@ -35,7 +35,7 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "app/_components/product/variations.jsx", "app/sizes/[sizeSlug]/page.js", "app/api/product/size/route.js", "app/api/productCategory/route.js", "app/api/product/singleProduct/route.js", "app/_components/lib/product/product.js", "app/_components/product/popular.jsx", "app/product/[id]/page.jsx", "app/_components/product/productContent.jsx", "app/_components/product/ProductImageSlider.jsx", "app/_components/header/Header.jsx", "app/_components/header/MegaMenu.jsx"  ],
+, "app/_components/product/variations.jsx", "app/sizes/[sizeSlug]/page.js", "app/api/product/size/route.js", "app/api/productCategory/route.js", "app/api/product/singleProduct/route.js", "app/_components/lib/product/product.js", "app/_components/product/popular.jsx", "app/product/[id]/page.jsx", "app/_components/product/productContent.jsx", "app/_components/product/ProductImageSlider.jsx", "app/_components/header/Header.jsx", "app/_components/header/MegaMenu.jsx", "app/brand/[slug]/page.js", "app/_components/cart/cartContent.jsx", "app/_components/store/useCartStore.js"  ],
   "exclude": [
     "node_modules"
   ]

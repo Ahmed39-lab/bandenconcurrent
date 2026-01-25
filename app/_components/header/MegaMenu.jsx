@@ -4,26 +4,26 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { getProductByCategories, getVariations } from '../lib/product/product';
 
-function MegaMenu({ slug, openIndex, setOpenIndex }) {
+function MegaMenu({setOpenIndex }) {
   const baseUrl = process.env.NEXT_PUBLIC_FRONT_END;
   const [popularProducts, setPopularProducts] = useState(null);
   const [variations,setVariations] = useState(null);
-  const getProducts = async () => {
-    const popProd = await getProductByCategories('passenger-tyres');
+
+
+ useEffect(() => {
+  const fetchData = async () => {
+    const [popProd, variationsData] = await Promise.all([
+      getProductByCategories('passenger-tyres'),
+      getVariations()
+    ]);
+
     setPopularProducts(popProd);
+    setVariations(variationsData);
   };
-  const getVariations1 = async () => 
-  {
-    const data = await getVariations();
-    setVariations(data);
-  }
 
-  useEffect(() => {
+  fetchData();
+}, []);
 
-
-    getProducts();
-    getVariations1();
-  }, []);
 
   return (
     <div className="max-w-[1200px] mx-auto grid grid-cols-4 gap-6 text-black">
