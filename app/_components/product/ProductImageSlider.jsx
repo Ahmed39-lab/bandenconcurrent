@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function ProductImageSlider({ data }) {
-  const backend_url = "http://localhost:1337";
+  const backend_url = process.env.NEXT_PUBLIC_FRONT_END;
 
   const product = data?.images || [];
 
