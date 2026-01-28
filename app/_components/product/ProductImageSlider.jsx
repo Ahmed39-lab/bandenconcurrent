@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function ProductImageSlider({ data }) {
   const backend_url = process.env.NEXT_PUBLIC_FRONT_END;
+  console.log(process.env.NEXT_PUBLIC_FRONT_END);
 
   const product = data?.images || [];
 
@@ -32,6 +33,9 @@ export default function ProductImageSlider({ data }) {
   return (
     <div className="w-full md:w-1/2 bg-gray-50 p-4 rounded shadow flex gap-4 relative">
       {/* THUMBNAILS */}
+        <pre>
+          <p>{JSON.stringify(productImages,null,2)}</p>
+          </pre>
       <div className="flex flex-col gap-2">
         {productImages.map((img, idx) => (
           <div
@@ -71,6 +75,7 @@ export default function ProductImageSlider({ data }) {
         </button>
 
         <div className="w-full h-[400px] relative rounded overflow-hidden">
+       
           <Image
             src={productImages[activeIndex]}
             alt={`Product ${activeIndex}`}

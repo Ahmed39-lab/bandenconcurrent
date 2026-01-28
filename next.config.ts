@@ -1,19 +1,10 @@
-const nextConfig = {
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "bandenconcurrent-production.up.railway.app",
-      },
-      {
-        protocol: "https",
-        hostname: "hostbrake.com",
-      },
-      {
-        protocol: "https",
-        hostname: "placehold.co",
-      },
-    ],
+    domains: ["images.example.com", "hostbrake.com","localhost","placehold.co",
+    "bandenconcurrent-production.up.railway.app"],
   },
 };
 
