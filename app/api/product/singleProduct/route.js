@@ -37,7 +37,7 @@ export async function GET(request) {
     }
 
     const resData = await res.json();
-    //console.log("API Request",apiUrl);
+    //console.log("Single Product Route",resData);
     
 //console.log("Route Data with out filter ", resData)
     // ------------------------------------
@@ -49,14 +49,14 @@ export async function GET(request) {
       slug: product.slug || "",
       price: product.price ?? "",
       description: product.description || "",
-      images: product.images || null,
+     images: product.images || [],   // ✅ FIX
       categoryName:product.category?.title || "",
       categorySlug:product.category?.slug || "",
       brandName: product.brand?.title || "",
       brandSlug: product.brand?.slug || ""
         
     }));
-//console.log("Route Data filter ", data)
+console.log("Route Data filter ", data)
     return NextResponse.json(data[0] || null);
 
   } catch (err) {

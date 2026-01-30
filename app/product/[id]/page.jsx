@@ -15,6 +15,7 @@ export default async function Page(props) {
   }
 
   const data = await getProductBySlug(id);
+  //console.log("single image data",data)
 
   return (
     <>

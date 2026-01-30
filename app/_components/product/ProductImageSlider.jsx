@@ -11,7 +11,7 @@ export default function ProductImageSlider({ data }) {
   const product = data?.images || [];
 
   const productImages = product.map((img) => {
-    return `${backend_url}${img.url}`;
+    return `${img.url}`;
   });
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -33,9 +33,9 @@ export default function ProductImageSlider({ data }) {
   return (
     <div className="w-full md:w-1/2 bg-gray-50 p-4 rounded shadow flex gap-4 relative">
       {/* THUMBNAILS */}
-        <pre>
+        {/* <pre>
           <p>{JSON.stringify(productImages,null,2)}</p>
-          </pre>
+          </pre> */}
       <div className="flex flex-col gap-2">
         {productImages.map((img, idx) => (
           <div
