@@ -20,7 +20,7 @@ export default async function Page(props) {
   return (
     <>
       <section>
-        <div className="max-w-[1200px] mx-auto">
+        <div className="max-w-[1200px]">
           <div className="flex flex-col gap-4 px-2 md:px-0">
             <div>
              <Breadcrumbs />

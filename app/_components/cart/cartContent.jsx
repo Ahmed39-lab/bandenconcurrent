@@ -3,6 +3,9 @@
 import { X } from "lucide-react";
 import { useCartStore } from "../store/useCartStore";
 import Image from "next/image";
+import Link from "next/link";
+
+
 
 export default function CartContent() {
   const { cart, removeFromCart } = useCartStore();
@@ -72,10 +75,14 @@ export default function CartContent() {
               <span>Total</span>
               <span>${totalPrice.toFixed(2)}</span>
             </div>
-
-            <button className="mt-6 w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded">
-              Proceed to Checkout
-            </button>
+<Link
+  href={`${process.env.NEXT_PUBLIC_FRONT_END}/checkout`}
+  className="mt-6 w-full inline-block bg-green-600 hover:bg-green-700 text-white py-3 rounded cursor-pointer text-center"
+>
+  Proceed to Checkout
+</Link>
+           
+          
           </div>
         </div>
       )}

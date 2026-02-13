@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Check, DeleteIcon, X } from "lucide-react";
 import { useCartStore } from "../store/useCartStore";
 
+
 export default function ProductContent({ data }) {
   const { removeFromCart, cart, addToCart } = useCartStore();
 
@@ -18,7 +19,7 @@ export default function ProductContent({ data }) {
   const dummyImage = "https://placehold.co/400";
 
   const image = data?.images?.[0]?.url
-    ? `${backend_url}${data.images[0].url}`
+    ? `${data.images[0].url}`
     : dummyImage;
 
   const handleAddToCart = () => {
@@ -158,6 +159,7 @@ export default function ProductContent({ data }) {
         >
           Checkout
         </button>
+      
       </div>
     </>
   );

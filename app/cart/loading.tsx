@@ -1,4 +1,4 @@
-import Loader from "../_components/generals/loading";
+import Loader from "../_components/generals/Loading";
 
 export default function Loading() {
   return (
