@@ -1,6 +1,7 @@
 import React from "react";
 import { Check } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 function Hero() {
     //const clients = new Array(10).fill("/images/client.png"); // 8 images same
@@ -172,9 +173,11 @@ export function SimpleTireForm() {
       </ul>
 
       {/* Button */}
-      <button className="w-full bg-green-600 text-white p-3 rounded">
+      <Link href={`${process.env.NEXT_PUBLIC_FRONT_END}/sizes/14-14-15?type=SUV`}>
+      <button className="w-full bg-green-600 text-white p-3 rounded cursor-pointer">
         To search
       </button>
+      </Link>
     </div>
   );
 }

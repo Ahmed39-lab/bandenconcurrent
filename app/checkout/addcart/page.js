@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import StripeWrapper from "../../_components/cart/StripeWrapper";
 import Breadcrumbs from "../../_components/generals/breadrumbs";
 import { useCartStore } from "../../_components/store/useCartStore";
+import { useUserStore } from "../../_components/store/useUserStore";
 import CartForm from "../../_components/cart/cartForm";
 import Loader from "../../_components/generals/Loading"
 
@@ -17,6 +18,7 @@ export default function cartFormPage() {
   const [clientSecret, setClientSecret] = useState(null);
 
     const { cart } = useCartStore();
+    const { userInformation } = useUserStore();
 
 
   const totalPrice = cart.reduce(
@@ -25,10 +27,14 @@ export default function cartFormPage() {
   );
 
   useEffect(() => {
+    console.log("Billing Information", userInformation);
     fetch("/api/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: totalPrice }),
+      body: JSON.stringify({ 
+        amount: totalPrice,
+        billingInfo: userInformation,
+      }),
     })
       .then(res => res.json())
       .then(data => setClientSecret(data.clientSecret));

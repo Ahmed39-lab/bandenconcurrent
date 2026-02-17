@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 import { useCartStore } from "../store/useCartStore";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "../store/useUserStore";
 
 // import {
 //   PaymentElement,
@@ -12,6 +13,7 @@ import { useRouter } from "next/navigation";
 
 export default function CheckoutForm() {
   const { cart } = useCartStore();
+  const { setUserInformation } = useUserStore();
   const router = useRouter();
 
   // const stripe = useStripe();
@@ -58,8 +60,10 @@ const {
     // ================= CARD / STRIPE =================
     if (data.paymentMethod === "card") {
 
-       router.push("/checkout/addcart"); // 👈 COD ke baad redirect
-    return;
+      //console.log("Billing Data",data); 
+      setUserInformation(data)
+      router.push("/checkout/addcart"); // 👈 COD ke baad redirect
+      return;
 
       // if (!stripe || !elements) {
       //   alert("Stripe not loaded");
