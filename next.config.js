@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
+
   images: {
     domains: [
       "images.example.com",
@@ -15,9 +17,6 @@ const nextConfig = {
         hostname: "**.ngrok-free.dev",
       },
     ],
-  },
-  experimental: {
-    allowedDevOrigins: ['https://snelbanden.nl'],
   },
 };
 
