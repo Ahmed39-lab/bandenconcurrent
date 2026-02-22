@@ -24,7 +24,7 @@ export default function ProductContent({ data }) {
 
   const handleAddToCart = () => {
     setCartOpen(true);
-
+    console.log("Cart items Specifications", data);
     addToCart({
       id: data.id,
       name: data.name,

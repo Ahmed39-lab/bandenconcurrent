@@ -33,6 +33,7 @@ export default function cartFormPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ 
         amount: totalPrice,
+        cart: cart,
         billingInfo: userInformation,
       }),
     })
