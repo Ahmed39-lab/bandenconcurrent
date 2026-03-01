@@ -4,41 +4,42 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { getProductByCategories, getVariations } from '../lib/product/product';
 
-function MegaMenu({setOpenIndex }) {
+function MegaMenu({ setOpenIndex }) {
   const baseUrl = process.env.NEXT_PUBLIC_FRONT_END;
   const [popularProducts, setPopularProducts] = useState(null);
-  const [variations,setVariations] = useState(null);
+  const [variations, setVariations] = useState(null);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const [popProd, variationsData] = await Promise.all([
+        getProductByCategories('passenger-tyres'),
+        getVariations()
+      ]);
 
- useEffect(() => {
-  const fetchData = async () => {
-    const [popProd, variationsData] = await Promise.all([
-      getProductByCategories('passenger-tyres'),
-      getVariations()
-    ]);
+      setPopularProducts(popProd);
+      setVariations(variationsData);
+    };
 
-    setPopularProducts(popProd);
-    setVariations(variationsData);
-  };
-
-  fetchData();
-}, []);
-
+    fetchData();
+  }, []);
 
   return (
-    <div className="max-w-[1200px] mx-auto grid grid-cols-4 gap-6 text-black">
+    <div className="max-w-[1200px] mx-auto grid grid-cols-4 gap-6 text-white">
 
       {/* Column 1 */}
-      <div className="p-2 border-r-2 border-[#d2d2d2]">
-        <h2 className="font-bold text-lg mb-2">Popular Car Tyre</h2>
+      <div className="p-3 border-r border-neutral-800">
+        <h2 className="font-semibold text-[15px] uppercase tracking-wider mb-3 text-gray-300">
+          Popular Car Tyre
+        </h2>
 
-        {(popularProducts && popularProducts.length>0) && (
-          <ul className="space-y-3">
+        {(popularProducts && popularProducts.length > 0) && (
+          <ul className="space-y-2 text-sm">
             {popularProducts.map((item, index) => (
               <li key={index}>
                 <Link
                   href={item.slug ? `/product/${item.slug}` : '#'}
                   onClick={() => setOpenIndex(null)}
+                  className="hover:text-gray-400 transition"
                 >
                   {item.name || 'New'}
                 </Link>
@@ -49,60 +50,54 @@ function MegaMenu({setOpenIndex }) {
       </div>
 
       {/* Column 2 */}
-      <div className="p-2 border-r-2 border-[#d2d2d2]">
-        <h2 className="font-bold text-lg mb-2">Tyre Sizes</h2>
-        <ul className="space-y-2">
-       
+      <div className="p-3 border-r border-neutral-800">
+        <h2 className="font-semibold text-[15px] uppercase tracking-wider mb-3 text-gray-300">
+          Tyre Sizes
+        </h2>
 
-          { (variations && variations.length>0) && (
-              variations.map((item,i)=>(
+        <ul className="space-y-2 text-sm">
+          {(variations && variations.length > 0) &&
+            variations.map((item, i) => (
               <li key={i}>
-            <Link href={`${baseUrl}/sizes/${item.allParams}`} onClick={() => setOpenIndex(null)}>
-              {`w-${item.width}h-${item.height}s-${item.size}`}
-            </Link>
-            </li>      
-              ))
-          )
-              
-          }
-          {/* <li>
-            <Link href={`${baseUrl}/sizes/10-15-5`} onClick={() => setOpenIndex(null)}>
-              w-10/h-10/s-15
-            </Link>
-          </li>
-          <li><Link href={`${baseUrl}/sizes/Tyre45-78`} onClick={() => setOpenIndex(null)}>185/65 R17</Link></li>
-          <li><Link href={`${baseUrl}/sizes/Tyre45-78`} onClick={() => setOpenIndex(null)}>185/65 R18</Link></li>
-          <li><Link href={`${baseUrl}/sizes/Tyre45-78`} onClick={() => setOpenIndex(null)}>185/65 R19</Link></li>
-          <li><Link href={`${baseUrl}/sizes/Tyre45-78`}>185/65 R15</Link></li>
-          <li><Link href={`${baseUrl}/sizes/Tyre45-78`}>185/65 R17</Link></li>
-          <li><Link href={`${baseUrl}/sizes/Tyre45-78`}>185/65 R18</Link></li>
-          <li><Link href={`${baseUrl}/sizes/Tyre45-78`}>185/65 R19</Link></li> */}
+                <Link
+                  href={`${baseUrl}/sizes/${item.allParams}`}
+                  onClick={() => setOpenIndex(null)}
+                  className="hover:text-gray-400 transition"
+                >
+                  {`w-${item.width} h-${item.height} s-${item.size}`}
+                </Link>
+              </li>
+            ))}
         </ul>
       </div>
 
       {/* Column 3 */}
-      <div className="p-2 border-r-2 border-[#d2d2d2]">
-        <h2 className="font-bold text-lg mb-2">Brands</h2>
-        <ul className="space-y-2">
-          <li><Link href={`${baseUrl}/brand/bridgestone`}>Bridgestone</Link></li>
-          <li><a href="#">Pirelli</a></li>
-          <li><a href="#">Michelin</a></li>
-          <li><a href="#">Bridgestone</a></li>
-          <li><a href="#">Pirelli</a></li>
-          <li><a href="#">Michelin</a></li>
+      <div className="p-3 border-r border-neutral-800">
+        <h2 className="font-semibold text-[15px] uppercase tracking-wider mb-3 text-gray-300">
+          Brands
+        </h2>
+
+        <ul className="space-y-2 text-sm">
+          <li><Link href={`${baseUrl}/brand/bridgestone`} className="hover:text-gray-400">Bridgestone</Link></li>
+          <li><a href="#" className="hover:text-gray-400">Pirelli</a></li>
+          <li><a href="#" className="hover:text-gray-400">Michelin</a></li>
+          <li><a href="#" className="hover:text-gray-400">Goodyear</a></li>
+          <li><a href="#" className="hover:text-gray-400">Continental</a></li>
         </ul>
       </div>
 
       {/* Column 4 */}
-      <div className="p-2 border-r-2 border-[#d2d2d2]">
-        <h2 className="font-bold text-lg mb-2">All-Season Tyre</h2>
-        <ul className="space-y-2">
-          <li><a href="#">Touring Tyre</a></li>
-          <li><a href="#">Summer Tyre</a></li>
-          <li><a href="#">Winter Tyre (Snow Tyre)</a></li>
-          <li><a href="#">Touring Tyre</a></li>
-          <li><a href="#">Summer Tyre</a></li>
-          <li><a href="#">Winter Tyre (Snow Tyre)</a></li>
+      <div className="p-3">
+        <h2 className="font-semibold text-[15px] uppercase tracking-wider mb-3 text-gray-300">
+          All Season Tyres
+        </h2>
+
+        <ul className="space-y-2 text-sm">
+          <li><a href="#" className="hover:text-gray-400">Touring Tyre</a></li>
+          <li><a href="#" className="hover:text-gray-400">Summer Tyre</a></li>
+          <li><a href="#" className="hover:text-gray-400">Winter Tyre</a></li>
+          <li><a href="#" className="hover:text-gray-400">Performance Tyre</a></li>
+          <li><a href="#" className="hover:text-gray-400">Off-road Tyre</a></li>
         </ul>
       </div>
 

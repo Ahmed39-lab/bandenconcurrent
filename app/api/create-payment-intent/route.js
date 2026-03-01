@@ -61,11 +61,12 @@ async function findOrCreateCustomer(billingInfo) {
     }
   );
 
-  const findCustomerData = await findCustomerRes.json();
+const findCustomerData = await findCustomerRes.json();
 
-  if (findCustomerData?.data?.length > 0) {
-    return findCustomerData.data[0].id;
-  }
+if (Array.isArray(findCustomerData?.data) && findCustomerData.data.length > 0) {
+  return findCustomerData.data[0].id;
+}
+
 
   const createCustomerRes = await fetch(
     `${process.env.STRAPI_API_URL}/customers`,

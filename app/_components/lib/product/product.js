@@ -41,7 +41,7 @@ export async function getVariations() {
 
 // Get single product by slug
 export async function getProductBySlug(slug) {
-  console.log("From API", slug);
+ // console.log("From API", slug);
   const res = await fetch(
     `${baseUrl}/api/product/singleProduct?slug=${slug}`,
     {

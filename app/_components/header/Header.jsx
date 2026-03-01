@@ -46,121 +46,118 @@ export default function Header() {
       <Topmenu />
       <SearchMenu />
 
-      <header className="p-4 font-sans relative hidden md:block border-[#d2d2d2] border-b-1">
-        <nav className="relative max-w-[1200px] mx-auto">
-          <ul className="flex space-x-8">
-            {menuItems.map((item, index) => (
-              <li
-                key={index}
-                className="hover:text-blue-600 py-2 text-black text-sm md:text-[16px]"
-                onMouseEnter={() => setOpenIndex(item.slug)}
-                onMouseLeave={() => setOpenIndex(null)}
-              >
-                <a href="#" className="flex font-semibold">
-                  {item.name}
-                  <ChevronDown />
-                </a>
+   <header className="p-4 font-sans relative hidden md:block bg-black border-b border-neutral-800">
+  <nav className="relative max-w-[1200px] mx-auto">
+    <ul className="flex space-x-8">
+      {menuItems.map((item, index) => (
+        <li
+          key={index}
+          className="py-2 text-white text-sm md:text-[16px] hover:text-gray-300 transition"
+          onMouseEnter={() => setOpenIndex(item.slug)}
+          onMouseLeave={() => setOpenIndex(null)}
+        >
+          <a href="#" className="flex font-semibold items-center gap-1">
+            {item.name}
+            <ChevronDown size={16} />
+          </a>
 
-                {openIndex === item.slug && (
-                  <div
-                    className={`
-                      mega-menu
-                      absolute top-full left-1/2 -translate-x-1/2
-                      w-screen bg-white shadow-lg p-6 z-50
-                      border-t-2 border-[#d2d2d2]
-                      transition-all duration-500 ease-in-out
-                      overflow-hidden
-                      ${
-                        openIndex === item.slug
-                          ? "opacity-100 max-h-[1000px]"
-                          : "opacity-0 max-h-0"
-                      }
-                    `}
-                  >
-                    <MegaMenu
-                      key={item.slug}
-                      slug={item.slug}
-                      openIndex={openIndex}
-                      setOpenIndex={setOpenIndex}
-                    />
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </header>
+          {openIndex === item.slug && (
+            <div
+              className={`
+                mega-menu absolute top-full left-1/2 -translate-x-1/2
+                w-screen bg-neutral-900 shadow-2xl p-6 z-50
+                border-t border-neutral-700
+                transition-all duration-300 ease-in-out
+                ${openIndex === item.slug ? "opacity-100" : "opacity-0"}
+              `}
+            >
+              <MegaMenu
+                key={item.slug}
+                slug={item.slug}
+                openIndex={openIndex}
+                setOpenIndex={setOpenIndex}
+              />
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
 
       {/* Mobile Header */}
-      <header className="md:hidden p-4 font-sans relative border-b border-gray-300">
-        <div className="flex justify-between items-center">
-          <div className="w-[150px] h-10 relative">
-            <Link href={`${baseUrl}`}>
-              <Image
-                src="/images/logo.svg"
-                alt="Hostbrake Logo"
-                fill
-                className="object-contain"
-              />
-            </Link>
-          </div>
+    <header className="md:hidden p-4 font-sans relative bg-black border-b border-neutral-800">
+  <div className="flex justify-between items-center">
+    <div className="w-[150px] h-10 relative">
+      <Link href={`${baseUrl}`}>
+        <Image
+          src="/images/logo.svg"
+          alt="Hostbrake Logo"
+          fill
+          className="object-contain"
+        />
+      </Link>
+    </div>
 
-          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
+    <button
+      onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+      className="text-white"
+    >
+      {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+    </button>
+  </div>
 
-        {mobileMenuOpen && (
-          <nav className="mt-4 bg-white shadow-lg border-t border-gray-200">
-            <ul>
-              {menuItems.map((item) => (
-                <li key={item.slug} className="border-b border-gray-200">
-                  <button
-                    className="w-full flex justify-between items-center p-4"
-                    onClick={() =>
-                      setOpenIndex(openIndex === item.slug ? null : item.slug)
-                    }
-                  >
-                    {item.name}
-                    <ChevronDown size={16} />
-                  </button>
+  {mobileMenuOpen && (
+    <nav className="mt-4 bg-neutral-900 shadow-xl border-t border-neutral-800 rounded-lg overflow-hidden">
+      <ul>
+        {menuItems.map((item) => (
+          <li key={item.slug} className="border-b border-neutral-800">
+            <button
+              className="w-full flex justify-between items-center p-4 text-white hover:bg-neutral-800 transition"
+              onClick={() =>
+                setOpenIndex(openIndex === item.slug ? null : item.slug)
+              }
+            >
+              {item.name}
+              <ChevronDown size={16} />
+            </button>
 
-                  <div
-                    className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                      openIndex === item.slug ? "max-h-96" : "max-h-0"
-                    }`}
-                  >
-                    <div className="p-4 bg-gray-50 grid grid-cols-1 gap-2">
-                      <div>Submenu Item 1</div>
-                      <div>Submenu Item 2</div>
-                      <div>Submenu Item 3</div>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
-      </header>
+            <div
+              className={`overflow-hidden transition-all duration-300 ${
+                openIndex === item.slug ? "max-h-96" : "max-h-0"
+              }`}
+            >
+              <div className="p-4 bg-black text-gray-300 grid grid-cols-1 gap-2">
+                <div>Submenu Item 1</div>
+                <div>Submenu Item 2</div>
+                <div>Submenu Item 3</div>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )}
+</header>
 
       {/* Mobile Search */}
-      <section className="md:hidden">
-        <div className="max-w-[1200px] mx-auto flex justify-between items-center h-20 p-4">
-          <div className="relative w-full max-w-2xl">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <Search size={18} className="text-gray-400" />
-            </div>
+ <section className="md:hidden bg-black border-t border-neutral-800">
+  <div className="max-w-[1200px] mx-auto flex justify-between items-center h-20 p-4">
+    <div className="relative w-full max-w-2xl">
+      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+        <Search size={18} className="text-gray-400" />
+      </div>
 
-            <input
-              type="text"
-              placeholder="Search..."
-              className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-4xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+      <input
+        type="text"
+        placeholder="Search..."
+        className="w-full pl-10 pr-3 py-2 bg-neutral-900 text-white border border-neutral-700 rounded-full focus:outline-none focus:ring-2 focus:ring-white"
+      />
+    </div>
 
-          <ShoppingCart size={24} />
-        </div>
-      </section>
+    <ShoppingCart size={24} className="text-white ml-4" />
+  </div>
+</section>
     </>
   );
 }
