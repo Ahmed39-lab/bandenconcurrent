@@ -23,3 +23,31 @@ export async function getProductsBySize(slug,queryObj = {}) {
   );
   return res.json();
 }
+
+
+// utils/fetchProduct.js
+export async function fetchSearchProducts(searchQuery) {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_FRONT_END;
+    const apiUrl = `${baseUrl}/api/product/search?searchQuery=${encodeURIComponent(searchQuery)}`;
+
+    const res = await fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store", // agar data hamesha fresh chahiye
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch products");
+    }
+
+    const data = await res.json();
+    
+    return data; // yahan Strapi ka response return ho raha
+  } catch (error) {
+    //console.error("Fetch Error:", error);
+    return null;
+  }
+}

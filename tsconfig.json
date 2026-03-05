@@ -50,7 +50,7 @@
     "app/brand/[slug]/page.js",
     "app/_components/cart/cartContent.jsx",
     "app/_components/store/useCartStore.js"
-, "app/_components/generals/Loading.jsx", "next.config.js"  ],
+, "app/_components/generals/Loading.jsx", "next.config.js", "app/_components/home/hero.jsx", "app/_components/home/hero.jsx", "app/_components/home/hero.jsx"  ],
   "exclude": [
     "node_modules"
   ]
