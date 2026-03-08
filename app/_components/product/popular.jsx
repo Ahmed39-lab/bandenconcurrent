@@ -14,7 +14,7 @@ async function Popular() {
           Most Popular Tires
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 px-2 md:px-0 lg:grid-cols-3 gap-12">
           <div>
             {motorbikeData && motorbikeData.length > 0 && (
               <ProductByCategotry title="Summer tires top 5" data={motorbikeData} />

@@ -5,8 +5,6 @@ import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function ProductImageSlider({ data }) {
-  const backend_url = process.env.NEXT_PUBLIC_FRONT_END;
-  console.log(process.env.NEXT_PUBLIC_FRONT_END);
 
   const product = data?.images || [];
 
@@ -31,20 +29,24 @@ export default function ProductImageSlider({ data }) {
   if (!productImages.length) return null;
 
   return (
-    <div className="w-full md:w-1/2 bg-gray-50 p-4 rounded shadow flex gap-4 relative">
+    <div className="w-full md:w-1/2 bg-black border border-neutral-800 p-4 rounded-xl shadow flex gap-4 relative text-white">
+
       {/* THUMBNAILS */}
-        {/* <pre>
-          <p>{JSON.stringify(productImages,null,2)}</p>
-          </pre> */}
       <div className="flex flex-col gap-2">
+
         {productImages.map((img, idx) => (
+
           <div
             key={idx}
-            className={`w-20 h-20 border rounded overflow-hidden cursor-pointer ${
-              idx === activeIndex ? "border-blue-500" : "border-gray-200"
+            className={`w-20 h-20 border rounded-lg overflow-hidden cursor-pointer transition
+            ${
+              idx === activeIndex
+                ? "border-white"
+                : "border-neutral-700 hover:border-neutral-500"
             }`}
             onClick={() => setActiveIndex(idx)}
           >
+
             <Image
               src={img}
               alt={`Thumb ${idx}`}
@@ -52,42 +54,49 @@ export default function ProductImageSlider({ data }) {
               height={80}
               className="object-cover w-full h-full"
             />
+
           </div>
+
         ))}
+
       </div>
 
       {/* MAIN IMAGE */}
       <div className="flex-1 relative">
-        {/* Left Arrow */}
+
+        {/* LEFT ARROW */}
         <button
           onClick={prevImage}
-          className="absolute top-1/2 -left-4 -translate-y-1/2 bg-white p-2 rounded-full shadow hover:bg-gray-100 z-10"
+          className="absolute top-1/2 -left-4 -translate-y-1/2 bg-neutral-900 border border-neutral-700 p-2 rounded-full hover:bg-neutral-800 transition z-10"
         >
-          <ChevronLeft size={24} />
+          <ChevronLeft size={22} className="text-white" />
         </button>
 
-        {/* Right Arrow */}
+        {/* RIGHT ARROW */}
         <button
           onClick={nextImage}
-          className="absolute top-1/2 -right-4 -translate-y-1/2 bg-white p-2 rounded-full shadow hover:bg-gray-100 z-10"
+          className="absolute top-1/2 -right-4 -translate-y-1/2 bg-neutral-900 border border-neutral-700 p-2 rounded-full hover:bg-neutral-800 transition z-10"
         >
-          <ChevronRight size={24} />
+          <ChevronRight size={22} className="text-white" />
         </button>
 
-        <div className="w-full h-[400px] relative rounded overflow-hidden">
-       
+        <div className="w-full h-[420px] relative rounded-lg overflow-hidden bg-neutral-900">
+
           <Image
             src={productImages[activeIndex]}
             alt={`Product ${activeIndex}`}
             fill
             className="object-contain"
           />
+
         </div>
 
-        <span className="text-xs text-gray-500 block mt-2">
+        {/* <span className="text-xs text-gray-400 block mt-2">
           Product ID:
-        </span>
+        </span> */}
+
       </div>
+
     </div>
   );
 }

@@ -39,7 +39,7 @@ function Hero() {
       >
         <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between gap-8 pt-7 md:pt-20 pb-3 md:pb-20">
           {/* LEFT CONTENT */}
-          <div className="md:w-1/2 w-full text-white relative space-y-6 mx-5 md:mx-0">
+          <div className="md:w-1/2 text-white relative space-y-6 mx-5 md:mx-0">
             <div>
               <h2 className="text-3xl md:text-6xl uppercase font-bold mb-4 text-[#fded5b]">
                 The best tire shop

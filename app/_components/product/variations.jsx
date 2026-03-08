@@ -9,6 +9,7 @@ import { ChevronDown, ArrowUpDown, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Range, getTrackBackground } from "react-range";
 import Loading from "../../sizes/loading";
+import Link from "next/link";
 
 export default function Variations({ data, slug }) {
   const router = useRouter();
@@ -112,7 +113,7 @@ const clearSize = () => {
   return (
     <section className="max-w-[1200px] mx-auto mt-8 text-black">
       {/* Header */}
-      <div className="flex justify-between mb-6 text-gray-600">
+      <div className="flex flex-col items-center gap-3 text-white  md:flex-row  md:justify-between px-2 md:px-0 mb-6 ">
         <span>Home / Tyres / Variations</span>
 
         <div className="flex items-center gap-2">
@@ -121,7 +122,7 @@ const clearSize = () => {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="border px-3 py-1 rounded"
+            className="border px-3 py-1 rounded text-gray-600"
           >
             <option value="">Default</option>
             <option value="price_asc">Price: Low to High</option>
@@ -130,14 +131,15 @@ const clearSize = () => {
         </div>
       </div>
 
-      <div className="flex gap-6">
+     <div className="flex flex-col md:flex-row gap-6 px-2 md:px-0">
         {/* ================= SIDEBAR ================= */}
-      <aside className="w-1/4 space-y-6">
+<aside className="w-full md:w-1/4 space-y-6 text-white">
+
   <h2 className="text-3xl font-semibold">Filters</h2>
 
   {/* PRICE */}
   <div>
-    <p className="font-medium mb-3">
+    <p className="font-medium mb-3 text-gray-300">
       Price: {priceRange[0]} - {priceRange[1]}
     </p>
 
@@ -157,7 +159,7 @@ const clearSize = () => {
               height: "6px",
               background: getTrackBackground({
                 values: priceRange,
-                colors: ["#ccc", "#000", "#ccc"],
+                colors: ["#404040", "#ffffff", "#404040"],
                 min: minPrice,
                 max: maxPrice,
               }),
@@ -173,100 +175,98 @@ const clearSize = () => {
           <div
             {...rest}
             key={key}
-            className="h-4 w-4 bg-black rounded-full"
+            className="h-4 w-4 bg-white border border-neutral-700 rounded-full shadow"
           />
         );
       }}
     />
   </div>
 
-  {/* Form for width height and size */}
   {/* SIZE FILTER */}
-<div className="p-4 border border-gray-200 rounded-lg bg-white">
-  <h3 className="mb-4 font-medium text-lg">Size</h3>
+  <div className="p-4 border border-neutral-800 rounded-lg bg-neutral-900">
+    <h3 className="mb-4 font-medium text-lg text-white">Size</h3>
 
-  <div className="flex gap-3 mb-4">
-    {/* WIDTH */}
-    <div className="flex-1">
-      <label className="block text-sm mb-1">Width</label>
-      <select
-        value={filtersForm.width}
-        onChange={(e) =>
-          setFiltersForm({ ...filtersForm, width: e.target.value })
-        }
-        className="w-full border rounded px-3 py-2 text-sm"
-      >
-        <option value="">All</option>
-        {[10,11,12,13,14,15,16,17,18].map((v) => (
-          <option key={v} value={v}>{v}</option>
-        ))}
-      </select>
+    <div className="flex gap-3 mb-4">
+
+      {/* WIDTH */}
+      <div className="flex-1">
+        <label className="block text-sm mb-1 text-gray-400">Width</label>
+        <select
+          value={filtersForm.width}
+          onChange={(e) =>
+            setFiltersForm({ ...filtersForm, width: e.target.value })
+          }
+          className="w-full border border-neutral-700 bg-black text-white rounded px-3 py-2 text-sm focus:outline-none focus:border-white"
+        >
+          <option value="">All</option>
+          {[10,11,12,13,14,15,16,17,18].map((v) => (
+            <option key={v} value={v}>{v}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* HEIGHT */}
+      <div className="flex-1">
+        <label className="block text-sm mb-1 text-gray-400">Height</label>
+        <select
+          value={filtersForm.height}
+          onChange={(e) =>
+            setFiltersForm({ ...filtersForm, height: e.target.value })
+          }
+          className="w-full border border-neutral-700 bg-black text-white rounded px-3 py-2 text-sm focus:outline-none focus:border-white"
+        >
+          <option value="">All</option>
+          {[10,11,12,13,14,15,16,17,18].map((v) => (
+            <option key={v} value={v}>{v}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* SIZE */}
+      <div className="flex-1">
+        <label className="block text-sm mb-1 text-gray-400">Size</label>
+        <select
+          value={filtersForm.size}
+          onChange={(e) =>
+            setFiltersForm({ ...filtersForm, size: e.target.value })
+          }
+          className="w-full border border-neutral-700 bg-black text-white rounded px-3 py-2 text-sm focus:outline-none focus:border-white"
+        >
+          <option value="">All</option>
+          {[10,11,12,13,14,15,16,17,18].map((v) => (
+            <option key={v} value={v}>{v}</option>
+          ))}
+        </select>
+      </div>
     </div>
 
-    {/* HEIGHT */}
-    <div className="flex-1">
-      <label className="block text-sm mb-1">Height</label>
-      <select
-        value={filtersForm.height}
-        onChange={(e) =>
-          setFiltersForm({ ...filtersForm, height: e.target.value })
-        }
-        className="w-full border rounded px-3 py-2 text-sm"
-      >
-        <option value="">All</option>
-        {[10,11,12,13,14,15,16,17,18].map((v) => (
-          <option key={v} value={v}>{v}</option>
-        ))}
-      </select>
-    </div>
-
-    {/* SIZE */}
-    <div className="flex-1">
-      <label className="block text-sm mb-1">Size</label>
-      <select
-        value={filtersForm.size}
-        onChange={(e) =>
-          setFiltersForm({ ...filtersForm, size: e.target.value })
-        }
-        className="w-full border rounded px-3 py-2 text-sm"
-      >
-        <option value="">All</option>
-        {[10,11,12,13,14,15,16,17,18].map((v) => (
-          <option key={v} value={v}>{v}</option>
-        ))}
-      </select>
-    </div>
+    <button
+      onClick={updateSize}
+      className="w-full bg-white text-black py-2 rounded text-sm font-medium hover:bg-gray-200 transition"
+    >
+      Apply
+    </button>
   </div>
 
-  <button
-    onClick={updateSize}
-    className="w-full bg-black text-white py-2 rounded text-sm"
-  >
-    Apply
-  </button>
-</div>
-
-
   {/* PRODUCT TYPE */}
-  <div className="p-3 bg-[#f8f8f8] rounded-lg">
+  <div className="p-4 bg-neutral-900 border border-neutral-800 rounded-lg">
     <div
       className="flex justify-between cursor-pointer"
       onClick={() => setProductTypeOpen(!productTypeOpen)}
     >
-      <span>Product Type</span>
+      <span className="font-medium">Product Type</span>
       <ChevronDown
-        className={`transition ${
-          productTypeOpen ? "rotate-180" : ""
-        }`}
+        className={`transition ${productTypeOpen ? "rotate-180" : ""}`}
       />
     </div>
 
     {productTypeOpen && (
-      <ul className="mt-3 space-y-2">
+      <ul className="mt-3 space-y-2 text-gray-300">
         {["summer", "winter", "all-season"].map((p) => (
           <li key={p} className="flex gap-2 items-center">
             <input
               type="checkbox"
+              className="accent-white"
               checked={selectedProductType.includes(p)}
               onChange={() =>
                 toggleValue(p, setSelectedProductType)
@@ -280,21 +280,19 @@ const clearSize = () => {
   </div>
 
   {/* CATEGORY */}
-  <div className="p-3 bg-[#f8f8f8] rounded-lg">
+  <div className="p-4 bg-neutral-900 border border-neutral-800 rounded-lg">
     <div
       className="flex justify-between cursor-pointer"
       onClick={() => setCatOpen(!catOpen)}
     >
-      <span>Category</span>
+      <span className="font-medium">Category</span>
       <ChevronDown
-        className={`transition ${
-          catOpen ? "rotate-180" : ""
-        }`}
+        className={`transition ${catOpen ? "rotate-180" : ""}`}
       />
     </div>
 
     {catOpen && (
-      <ul className="mt-3 space-y-2">
+      <ul className="mt-3 space-y-2 text-gray-300">
         {[
           "passenger-tyres",
           "truck-tyres",
@@ -304,6 +302,7 @@ const clearSize = () => {
           <li key={cat} className="flex gap-2 items-center">
             <input
               type="checkbox"
+              className="accent-white"
               checked={selectedCategories.includes(cat)}
               onChange={() =>
                 toggleValue(cat, setSelectedCategories)
@@ -317,21 +316,19 @@ const clearSize = () => {
   </div>
 
   {/* BRANDS */}
-  <div className="p-3 bg-[#f8f8f8] rounded-lg">
+  <div className="p-4 bg-neutral-900 border border-neutral-800 rounded-lg">
     <div
       className="flex justify-between cursor-pointer"
       onClick={() => setBrandOpen(!brandOpen)}
     >
-      <span>Brands</span>
+      <span className="font-medium">Brands</span>
       <ChevronDown
-        className={`transition ${
-          brandOpen ? "rotate-180" : ""
-        }`}
+        className={`transition ${brandOpen ? "rotate-180" : ""}`}
       />
     </div>
 
     {brandOpen && (
-      <ul className="mt-3 space-y-2">
+      <ul className="mt-3 space-y-2 text-gray-300">
         {[
           "bridgestone",
           "dunlop",
@@ -342,6 +339,7 @@ const clearSize = () => {
           <li key={brand} className="flex gap-2 items-center">
             <input
               type="checkbox"
+              className="accent-white"
               checked={selectedBrands.includes(brand)}
               onChange={() =>
                 toggleValue(brand, setSelectedBrands)
@@ -353,13 +351,14 @@ const clearSize = () => {
       </ul>
     )}
   </div>
+
 </aside>
 
 
         {/* ================= PRODUCTS ================= */}
-        <main className="w-3/4">
+    <main className="w-full md:w-3/4 text-white">
 
-        {/* ================= ACTIVE FILTERS ================= */}
+{/* ================= ACTIVE FILTERS ================= */}
 {(
   selectedCategories.length ||
   selectedBrands.length ||
@@ -370,7 +369,6 @@ const clearSize = () => {
 ) && (
   <div className="mb-6 flex flex-wrap gap-2">
     
-    {/* PRODUCT TYPE */}
     {selectedProductType.map((p) => (
       <FilterChip
         key={p}
@@ -379,7 +377,6 @@ const clearSize = () => {
       />
     ))}
 
-    {/* CATEGORY */}
     {selectedCategories.map((c) => (
       <FilterChip
         key={c}
@@ -388,7 +385,6 @@ const clearSize = () => {
       />
     ))}
 
-    {/* BRAND */}
     {selectedBrands.map((b) => (
       <FilterChip
         key={b}
@@ -397,7 +393,6 @@ const clearSize = () => {
       />
     ))}
 
-    {/* PRICE */}
     {(priceRange[0] > 0 || priceRange[1] < 5000) && (
       <FilterChip
         label={`Price: ${priceRange[0]} - ${priceRange[1]}`}
@@ -405,7 +400,6 @@ const clearSize = () => {
       />
     )}
 
-    {/* SIZE */}
     {filtersForm.width && filtersForm.height && filtersForm.size && (
       <FilterChip
         label={`Size: ${filtersForm.width}-${filtersForm.height}-${filtersForm.size}`}
@@ -415,56 +409,71 @@ const clearSize = () => {
   </div>
 )}
 
-       
-  {isLoading ? (
-    <Loading />
-  ) : data?.length ? (
-    data.map((dt) => (
-      <div
-        key={dt.product.id}
-        className="p-5 mb-4 rounded-xl bg-white border shadow flex justify-between"
-      >
-        <div className="flex gap-4">
-          <img
-            src={dt.product.image || "https://placehold.co/100"}
-            width={100}
-            height={100}
-            className="rounded"
-          />
-          <div>
-            <h3 className="text-xl font-semibold">{dt.product.name}</h3>
-            <p className="mt-2">
-              Price: <strong>${dt.price}</strong>
-            </p>
-            <div className="text-sm font-medium text-gray-700 mt-2 flex gap-3">
-              <div>
-                <span>Category : </span>
-                <span className="text-black font-semibold">
-                  {dt.product?.category?.title}
-                </span>
-              </div>
-              <div>
-                <span>Brands : </span>
-                <span className="text-black font-semibold">
-                  {dt.product?.brand?.title}
-                </span>
-              </div>
-              <div>
-                <span>Product Type  : </span>
-                <span className="text-black font-semibold">
-                  {dt.product?.product_type?.title}
-                </span>
-              </div>
+{isLoading ? (
+  <Loading />
+) : data?.length ? (
+  data.map((dt,i) => (
+    <div
+      key={i}
+      className="p-5 mb-4 rounded-xl bg-neutral-900 border border-neutral-800 shadow flex flex-col md:flex-row justify-between hover:border-neutral-600 transition"
+    >
+      <div className="flex gap-4">
+        <img
+          src={dt.product.image || "https://placehold.co/100"}
+          width={100}
+          height={100}
+          className="rounded"
+        />
+
+        <div>
+          <Link href={`${process.env.NEXT_PUBLIC_FRONT_END}/product/${dt.product.slug}`}>
+          <h3 className="text-xl font-semibold text-white">
+            {dt.product.name}
+          </h3></Link>
+
+          <p className="mt-2 text-gray-300">
+            Price: <strong className="text-white">${dt.price}</strong>
+          </p>
+
+          <div className="text-sm font-medium text-gray-400 mt-2 flex gap-4 flex-wrap">
+
+            <div>
+              <span>Category :</span>{" "}
+              <span className="text-white font-semibold">
+                {dt.product?.category?.title}
+              </span>
             </div>
+
+            <div>
+              <span>Brand :</span>{" "}
+              <span className="text-white font-semibold">
+                {dt.product?.brand?.title}
+              </span>
+            </div>
+
+            <div>
+              <span>Product Type :</span>{" "}
+              <span className="text-white font-semibold">
+                {dt.product?.product_type?.title}
+              </span>
+            </div>
+
           </div>
         </div>
-        <span className="text-gray-500">Looking At</span>
       </div>
-    ))
-  ) : (
-    <p className="text-gray-500">No products found.</p>
-  )}
-        </main>
+
+     <Link href={`${process.env.NEXT_PUBLIC_FRONT_END}/product/${dt.product.slug}`}> <span className="text-gray-500 mt-3 md:mt-0">
+        Looking At
+      </span>
+      </Link>
+
+    </div>
+  ))
+) : (
+  <p className="text-gray-400">No products found.</p>
+)}
+
+</main>
       </div>
     </section>
   );
@@ -473,7 +482,7 @@ const clearSize = () => {
 
 function FilterChip({ label, onRemove }) {
   return (
-    <div className="flex items-center gap-2 px-3 py-1 bg-gray-100 border rounded-full text-sm">
+    <div className="flex items-center gap-2 px-3 py-1 bg-neutral-900 border border-neutral-800 rounded-full text-sm">
       <span>{label}</span>
       <button onClick={onRemove}>
         <X size={14} />

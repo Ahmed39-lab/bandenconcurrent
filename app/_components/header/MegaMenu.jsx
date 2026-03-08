@@ -10,6 +10,7 @@ function MegaMenu({ setOpenIndex }) {
   const [variations, setVariations] = useState(null);
 
   useEffect(() => {
+     if (popularProducts && variations) return;
     const fetchData = async () => {
       const [popProd, variationsData] = await Promise.all([
         getProductByCategories('passenger-tyres'),

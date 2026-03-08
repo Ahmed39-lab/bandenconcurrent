@@ -85,24 +85,18 @@ const handleSearch = (value) => {
             <ChevronDown size={16} />
           </a>
 
-          {openIndex === item.slug && (
-            <div
-              className={`
-                mega-menu absolute top-full left-1/2 -translate-x-1/2
-                w-screen bg-neutral-900 shadow-2xl p-6 z-50
-                border-t border-neutral-700
-                transition-all duration-300 ease-in-out
-                ${openIndex === item.slug ? "opacity-100" : "opacity-0"}
-              `}
-            >
-              <MegaMenu
-                key={item.slug}
-                slug={item.slug}
-                openIndex={openIndex}
-                setOpenIndex={setOpenIndex}
-              />
-            </div>
-          )}
+         <div
+  className={`mega-menu absolute top-full left-1/2 -translate-x-1/2
+  w-screen bg-neutral-900 shadow-2xl p-6 z-50
+  border-t border-neutral-700 transition-all duration-300
+  ${openIndex === item.slug ? "opacity-100 visible" : "opacity-0 invisible"}`}
+>
+  <MegaMenu
+    slug={item.slug}
+    openIndex={openIndex}
+    setOpenIndex={setOpenIndex}
+  />
+</div>
         </li>
       ))}
     </ul>
